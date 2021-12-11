@@ -60,7 +60,7 @@ function menu() {
             else if (answer.selections === "add an employee") {
                 addEmployee();
             }
-            else (answer.selections === "update an employee role") {
+            else {
                 updateEmployeeRole();
             }
         })
