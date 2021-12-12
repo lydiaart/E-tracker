@@ -7,8 +7,26 @@ VALUES
 ("Finance"), 
 ("Legal");
 
+DELETE FROM department(name)
+WHERE 
+("Sales"), 
+("Engineering"), 
+("Finance"), 
+("Legal");
+
 INSERT INTO role(title, salary, department_id)
 VALUES
+("Sales Lead", 100000, 1),
+("Salesperson", 80000, 1),
+("Lead Engineer", 150000, 2),
+("Software Engineer", 120000, 2),
+("Accountant", 125000, 3),
+("Legal Team Lead", 250000, 4),
+("Lawyer", 190000, 4),
+("Software Engineer", 120000, 2);
+
+DELETE FROM role(title, salary, department_id)
+WHERE
 ("Sales Lead", 100000, 1),
 ("Salesperson", 80000, 1),
 ("Lead Engineer", 150000, 2),
@@ -28,7 +46,6 @@ VALUES
 ("Sarah", "Lourd", 6),
 ("Tom", "Allen", 7),
 ("Tammer", "Galal", 8);
-
 
 UPDATE employee SET manager_id = 3 WHERE id = 1 or id = 4;
 UPDATE employee SET manager_id = 1 WHERE id = 2;
