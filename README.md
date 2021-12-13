@@ -1,7 +1,7 @@
 # E-tracker
 
 ## Description
-This application is to assist business owners to be able to view, update, or organize employees' role, salary or management of the company in the computer.
+This application is to assist business owners to view, update, or organize their employees' role, salary or management.
 
 
 ## Table of Contents
@@ -31,8 +31,7 @@ Please click on the following link for clearer video:
 <p><a href="https://watch.screencastify.com/v/TpKxhN8c6zK1JIz556NQ">Link</a></p>
 
 ## Website
-[Repository](https://github.com/flowingcityloy/E-tracker)<br>
-[Live Site](https://flowingcityloy.github.io/E-tracker/)
+[Repository](https://github.com/flowingcityloy/E-tracker)
 
 ## Credits
 
