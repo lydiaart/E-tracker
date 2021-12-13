@@ -234,7 +234,7 @@ async function removeRole() {
                 if (linkInput) {
                     return true;
                 } else {
-                    console.log("Please enter the department id!");
+                    console.log("Please choose the role that you would like to remove!");
                     return false;
                 }
             }
@@ -327,7 +327,7 @@ async function addEmployee() {
                 if (linkInput) {
                     return true;
                 } else {
-                    console.log("You need to add the new role id!");
+                    console.log("Please choose the manager for this employee!");
                     return false;
                 }
             }
@@ -335,7 +335,7 @@ async function addEmployee() {
     ])
 
     const data = await query(" INSERT INTO employee(first_name, last_name, role_id, manager_id) VALUES(?, ?, ?, ?)", [answer.first_name, answer.last_name, answer.role_id, answer.manager_id]);
-    await console.log("You have successfully added the new employee's firstname, last name and role title!");
+    await console.log("You have successfully added the new employee's first name, last name and role title!");
     await viewEmployees();
 }
 
@@ -365,7 +365,7 @@ async function removeEmployee() {
         },
     ])
     await query(" DELETE FROM employee WHERE id = ? ", [answer.employee_id]);
-    await console.log("You have successuflly removed an employee!");
+    await console.log("You have successufully removed an employee!");
     await viewEmployees();
 }
 
@@ -397,7 +397,7 @@ async function updateEmployeeRole() {
         {
             type: "list",
             name: "role_id",
-            message: "What is the employe's new role? (Required)",
+            message: "What is the employee's new role? (Required)",
             choices: async () => {
                 const roleData = await query("SELECT * FROM role")
                 return roleData.map(role => {
@@ -470,7 +470,7 @@ async function updateEmployeeManager() {
             }
         },
     ])
-    await query(" UPDATE employee SET manager_id = ? WHERE id = ? ", [answer.manager_id]);
+    await query(" UPDATE employee SET manager_id = ? WHERE id = ? ", [answer.id, answer.manager_id]);
     await console.log("You have successully updated a manager!");
     await viewEmployees();
 }
