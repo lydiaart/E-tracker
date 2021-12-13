@@ -26,9 +26,9 @@ This application is to assist business owners to view, update, or organize their
   
 ## Usage 
 The following image demonstrates the web application's appearance and functionality:
-<p><img src="./public/assets/Memo-for-Yall.gif"/></p>
+<p><img src="./assets/E-tracker.gif"/></p>
 Please click on the following link for clearer video:
-<p><a href="https://watch.screencastify.com/v/TpKxhN8c6zK1JIz556NQ">Link</a></p>
+<p><a href="https://watch.screencastify.com/v/EOSw8RBsM000SZ0tTkQU">Link</a></p>
 
 ## Website
 [Repository](https://github.com/flowingcityloy/E-tracker)
