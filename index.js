@@ -20,10 +20,7 @@ const questions = {
         "add an employee",
         "remove an employee",
         "update employee's role",
-        "update employee's department",
-        "update employee's salary",
-        "update employee's management",
-        "total salaries of all employees"
+        "update employee's manager"
     ]
 }
 
@@ -80,15 +77,10 @@ function menu() {
             else if (answer.selections === "update employee's role") {
                 updateEmployeeRole();
             }
-            else if (answer.selections === "update employee's salary") {
-                updateEmployeeSalary();
-            }
-            else if (answer.selections === "update employee's management") {
-                updateEmployeeManagment();
-            }
             else {
-                addAllSalaries();
+                updateEmployeeManager();
             }
+         
         })
 }
 
@@ -430,12 +422,12 @@ async function updateEmployeeRole() {
     await viewEmployees();
 }
 
-async function addAllSalaries() {
+async function updateEmployeeManager() {
 
-    const salaryData = await query("SELECT * FROM employee")
-    const salaries = employeeData.map(salary => {
+    const employeeData = await query("SELECT * FROM employee")
+    const employees = employeeData.map(employee => {
         return {
-            name: salary.id,
+            name: employee.first_name + " " + employee.last_name,
             value: employee.id
         }
     })
@@ -443,28 +435,28 @@ async function addAllSalaries() {
     const answer = await inquirer.prompt([
         {
             type: "list",
-            name: "employee_id",
-            message: "Which employee would you like to update? (Required)",
+            name: "id",
+            message: "Which employee's manager would you like to update? (Required)",
             choices: employees,
             validate: linkInput => {
                 if (linkInput) {
                     return true;
                 } else {
-                    console.log("Please choose the employee!");
+                    console.log("Please select an employee!");
                     return false;
                 }
             }
         },
         {
             type: "list",
-            name: "role_id",
-            message: "What is the employe's new role? (Required)",
+            name: "manager_id",
+            message: "Which employee do you want to set as manager for this selected employee? (Required)",
             choices: async () => {
-                const roleData = await query("SELECT * FROM role")
-                return roleData.map(role => {
+                const employeeData = await query("SELECT * FROM employee")
+                return employeeData.map(employee => {
                     return {
-                        name: role.title,
-                        value: role.id
+                        name: employee.first_name + " " + employee.last_name,
+                        value: employee.manager_id
                     }
                 })
             },
@@ -472,13 +464,13 @@ async function addAllSalaries() {
                 if (linkInput) {
                     return true;
                 } else {
-                    console.log("Please enter the role for the employee!");
+                    console.log("Please choose a manager for the selected employee!");
                     return false;
                 }
             }
         },
     ])
-    await query(" UPDATE employee SET role_id = ? WHERE id = ? ", [answer.role_id, answer.employee_id]);
-    await console.log("You have successully updated a new role!");
+    await query(" UPDATE employee SET manager_id = ? WHERE id = ? ", [answer.manager_id]);
+    await console.log("You have successully updated a manager!");
     await viewEmployees();
 }
