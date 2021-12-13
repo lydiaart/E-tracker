@@ -22,7 +22,7 @@ const questions = {
         "update employee's role",
         "update employee's department",
         "update employee's salary",
-        "update employee's management", 
+        "update employee's management",
         "total salaries of all employees"
     ]
 }
@@ -75,7 +75,7 @@ function menu() {
                 addEmployee();
             }
             else if (answer.selections === "remove an employee") {
-                removeRole();
+                removeEmployee();
             }
             else if (answer.selections === "update employee's role") {
                 updateEmployeeRole();
@@ -126,12 +126,19 @@ async function addDepartment() {
 }
 
 async function removeDepartment() {
-
+    const data = await query(" SELECT * FROM department ")
+    const departments = data.map(department => {
+        return {
+            name: department.name,
+            value: department.id
+        }
+    })
     const answer = await inquirer.prompt([
         {
-            type: "input",
-            name: "removeDepartment",
+            type: "list",
+            name: "department_id",
             message: "Which department would you like to remove.? (Required)",
+            choices: departments,
             validate: linkInput => {
                 if (linkInput) {
                     return true;
@@ -143,14 +150,16 @@ async function removeDepartment() {
         }
     ])
 
-    const data = await query(" DELETE FROM department(name) WHERE(?)", [answer.removeDepartment]);
+    await query(" DELETE FROM department WHERE id=? ", [answer.department_id]);
     await console.log("You have successfully removed the new department!");
     await viewAllDepartments();
 
 }
 
 async function viewRole() {
-    const data = await query(" SELECT * FROM role");
+    const data = await query(`SELECT role.id, title, salary, 
+    name FROM role LEFT JOIN department ON 
+    role.department_id = department.id;`);
 
     printTable(data);
     menu();
@@ -217,14 +226,15 @@ async function removeRole() {
     const answer = await inquirer.prompt([
         {
             type: "list",
-            name: "department_id",
-            message: "You may remove the employee by entering his/her department id. (Required)",
+            name: "role_id",
+            message: "Choose the following role below to remove: (Required)",
             choices: async () => {
-                const data = await query(" DELETE FROM role WHERE ")
+                const data = await query(" SELECT * FROM role ")
+
                 return data.map(role => {
                     return {
-                        name: role.name,
-                        value: role.department_id
+                        name: role.title,
+                        value: role.id
                     }
                 })
             },
@@ -239,7 +249,7 @@ async function removeRole() {
         },
     ])
 
-    const data = await query(" DELETE FROM role(title, salary, department_id) VALUES(?, ?, ?)", [answer.title, answer.salary, answer.department_id]);
+    await query(" DELETE FROM role WHERE id = ? ", [answer.role_id]);
     await console.log("You have successfully removed the employee!");
     await viewRole();
 }
@@ -337,28 +347,138 @@ async function addEmployee() {
     await viewEmployees();
 }
 
-async removeEmployee()
-
-async function updateEmployeeRole() {
+async function removeEmployee() {
+    const employeeData = await query("SELECT * FROM employee");
+    const employees = employeeData.map(employee => {
+        return {
+            name: employee.first_name + " " + employee.last_name,
+            value: employee.id
+        }
+    });
 
     const answer = await inquirer.prompt([
         {
-            type: "input",
-            name: "update",
-            message: "Which employee would you like to change? (Required)",
+            type: "list",
+            name: "employee_id",
+            message: "Which employee would you like to remove? (Required)",
+            choices: employees,
             validate: linkInput => {
                 if (linkInput) {
                     return true;
                 } else {
-                    console.log("You need to choose the employee!");
+                    console.log("Please choose the employee!");
                     return false;
                 }
             }
         },
     ])
-
+    await query(" DELETE FROM employee WHERE id = ? ", [answer.employee_id]);
+    await console.log("You have successuflly removed an employee!");
+    await viewEmployees();
 }
 
-async function removeEmployee() {
+async function updateEmployeeRole() {
 
+    const employeeData = await query("SELECT * FROM employee")
+    const employees = employeeData.map(employee => {
+        return {
+            name: employee.first_name + " " + employee.last_name,
+            value: employee.id
+        }
+    })
+
+    const answer = await inquirer.prompt([
+        {
+            type: "list",
+            name: "employee_id",
+            message: "Which employee would you like to update? (Required)",
+            choices: employees,
+            validate: linkInput => {
+                if (linkInput) {
+                    return true;
+                } else {
+                    console.log("Please choose the employee!");
+                    return false;
+                }
+            }
+        },
+        {
+            type: "list",
+            name: "role_id",
+            message: "What is the employe's new role? (Required)",
+            choices: async () => {
+                const roleData = await query("SELECT * FROM role")
+                return roleData.map(role => {
+                    return {
+                        name: role.title,
+                        value: role.id
+                    }
+                })
+            },
+            validate: linkInput => {
+                if (linkInput) {
+                    return true;
+                } else {
+                    console.log("Please enter the role for the employee!");
+                    return false;
+                }
+            }
+        },
+    ])
+    await query(" UPDATE employee SET role_id = ? WHERE id = ? ", [answer.role_id, answer.employee_id]);
+    await console.log("You have successully updated a new role!");
+    await viewEmployees();
+}
+
+async function addAllSalaries() {
+
+    const salaryData = await query("SELECT * FROM employee")
+    const salaries = employeeData.map(salary => {
+        return {
+            name: salary.id,
+            value: employee.id
+        }
+    })
+
+    const answer = await inquirer.prompt([
+        {
+            type: "list",
+            name: "employee_id",
+            message: "Which employee would you like to update? (Required)",
+            choices: employees,
+            validate: linkInput => {
+                if (linkInput) {
+                    return true;
+                } else {
+                    console.log("Please choose the employee!");
+                    return false;
+                }
+            }
+        },
+        {
+            type: "list",
+            name: "role_id",
+            message: "What is the employe's new role? (Required)",
+            choices: async () => {
+                const roleData = await query("SELECT * FROM role")
+                return roleData.map(role => {
+                    return {
+                        name: role.title,
+                        value: role.id
+                    }
+                })
+            },
+            validate: linkInput => {
+                if (linkInput) {
+                    return true;
+                } else {
+                    console.log("Please enter the role for the employee!");
+                    return false;
+                }
+            }
+        },
+    ])
+    await query(" UPDATE employee SET role_id = ? WHERE id = ? ", [answer.role_id, answer.employee_id]);
+    await console.log("You have successully updated a new role!");
+    await viewEmployees();
 }
