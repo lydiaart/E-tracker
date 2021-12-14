@@ -2,7 +2,6 @@ const department = require('./lib/Departments');
 const employee = require('./lib/Employees');
 const role = require('./lib/Role');
 const inquirer = require('inquirer');
-
 const figlet = require('figlet');
 const query = require('./connection');
 
