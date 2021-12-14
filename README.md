@@ -20,8 +20,11 @@ This application is to assist business owners to view, update, or organize their
 ## Built With
 * JavaScript
 * Inquirer
-* MySQL
+* dotenv
 * MySQL2
+* util
+* console-table-printer
+* fitlet
 
   
 ## Usage 
