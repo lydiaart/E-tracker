@@ -3,6 +3,7 @@
 ## Description
 This application is to assist business owners to view, update, or organize their employees' role, salary or management.
 
+ [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 ## Table of Contents
 * [Installation](#installation)
