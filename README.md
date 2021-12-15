@@ -5,6 +5,8 @@ This application is to assist business owners to view, update, or organize their
 
  [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
+<hr />
+
 ## Table of Contents
 * [Installation](#installation)
 * [Built With](#builtwith)
@@ -12,6 +14,8 @@ This application is to assist business owners to view, update, or organize their
 * [Website](#website)
 * [Credits](#credits)
 * [Questions](#questions)
+
+<hr />
 
 ## Installation 
   1. copy repository
@@ -27,6 +31,7 @@ This application is to assist business owners to view, update, or organize their
 * console-table-printer
 * fitlet
 
+<hr />
   
 ## Usage 
 The following image demonstrates the web application's appearance and functionality:
@@ -34,13 +39,19 @@ The following image demonstrates the web application's appearance and functional
 Please click on the following link for clearer video:
 <p><a href=https://watch.screencastify.com/v/hnQhzISm3Q47y1u7QDYZ>Link</a></p>
 
+<hr />
+
 ## Website
 [Repository](https://github.com/flowingcityloy/E-tracker)
+
+<hr />
 
 ## Credits
 
 Lydia Loy
     
+<hr />
+
 ## Questions
   
   If you have any questions, please reach out to me at:<br>
